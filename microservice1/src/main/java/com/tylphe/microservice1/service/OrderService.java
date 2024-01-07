@@ -28,7 +28,8 @@ public class OrderService {
 
         // Rest call
         // Hard coding the localhost URL until we set up Eureka, then use the Eureka reference
-        PaymentDto paymentResponse = restTemplate.postForObject("http://localhost:9191/payment/doPayment", paymentDto, PaymentDto.class);
+//        PaymentDto paymentResponse = restTemplate.postForObject("http://localhost:9191/payment/doPayment", paymentDto, PaymentDto.class);
+        PaymentDto paymentResponse = restTemplate.postForObject("http://PAYMENT-SERVICE/payment/doPayment", paymentDto, PaymentDto.class);
 
         assert paymentResponse != null;
         response = paymentResponse.getPaymentStatus().equals("success") ? "payment processing successful and order placed" : "There is a failure in payment api, order added to cart";
