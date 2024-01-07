@@ -25,4 +25,8 @@ public class PaymentService {
         // api should be 3rd party payment gateway (ex. paypal)
         return new Random().nextBoolean() ? "success" : "false";
     }
+
+    public Payment findPaymentHistoryByOrderId(Integer orderId) {
+        return repository.findByOrderId(orderId);
+    }
 }
