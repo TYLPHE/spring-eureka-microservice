@@ -1,18 +1,29 @@
 spring:
+#  main:
+#    web-application-type: reactive
   application:
     name: GATEWAY-SERVICE
   cloud:
     gateway:
-      mvc:
-        routes:
-          - id: order-service
-            uri: lb://ORDER-SERVICE
-            predicates:
-              - Path=/order/**
-          - id: payment-service
-            uri: lb://PAYMENT-SERVICE
-            predicates:
-              - Path=/payment/**
+      routes:
+      - id: order-service
+        uri: lb://ORDER-SERVICE
+        predicates:
+          - Path=/order/**
+        filters:
+          - JwtAuthFilter
+
+      - id: payment-service
+        uri: lb://PAYMENT-SERVICE
+        predicates:
+          - Path=/payment/**
+        filters:
+          - JwtAuthFilter
+
+      - id: auth-service
+        uri: lb://AUTH-SERVICE
+        predicates:
+          - Path=/auth/**
 eureka:
   client:
     service-url:
@@ -22,5 +33,6 @@ eureka:
 server:
   port: 8989
 
-
+jwt:
+  secret: 7136a88d4b4b8b378ed192f41a1a0aa884dc671753492790c58ab939bc010465
 
